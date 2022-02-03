@@ -23,7 +23,7 @@ namespace Experian.API.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            this._mockRepository = new MockRepository(MockBehavior.Strict);
+            this._mockRepository = new MockRepository(MockBehavior.Default);
             this._mockPhotoAlbumBusiness = this._mockRepository.Create<IPhotoAlbumBusiness>();
             this._mocklogger = this._mockRepository.Create<ILogger<PhotoAlbumController>>();
         }
@@ -36,7 +36,6 @@ namespace Experian.API.Tests
         [TestMethod()]
         public async Task GetTestAsync()
         {
-            var photoAlbumController = CreatePhotoAlbumController();
             var albumSetup = new List<Album>()
             {
                 new Album()
@@ -88,6 +87,7 @@ namespace Experian.API.Tests
                 }
             };
             _mockPhotoAlbumBusiness.Setup(x => x.GetAllPhotoAlbumsAsync()).ReturnsAsync(albumSetup);
+            var photoAlbumController = CreatePhotoAlbumController();
             var response = await photoAlbumController.Get();
             var album = (IEnumerable<Album>)((Microsoft.AspNetCore.Mvc.ObjectResult)response.Result).Value;
             Assert.IsTrue(album.Count() == 3 && album.SelectMany(a => a.Photos).ToList().Count() == 4);
@@ -96,7 +96,6 @@ namespace Experian.API.Tests
         [TestMethod()]
         public async Task GetByUserTestAsync()
         {
-            var photoAlbumController = CreatePhotoAlbumController();
             var albumSetup = new List<Album>()
             {
                 new Album()
@@ -149,6 +148,7 @@ namespace Experian.API.Tests
             };
             int userId = 2;
             _mockPhotoAlbumBusiness.Setup(x => x.GetPhotoAlbumsByUserAsync(userId)).ReturnsAsync(albumSetup.Where(x => x.UserId == userId));
+            var photoAlbumController = CreatePhotoAlbumController();
             var response = await photoAlbumController.Get(userId);
             var album = (IEnumerable<Album>)((Microsoft.AspNetCore.Mvc.ObjectResult)response.Result).Value;
             Assert.IsTrue(album != null && album.Count() == 1);
