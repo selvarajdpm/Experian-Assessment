@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experian.API.Business", "Ex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experian.API.Integration", "Experian.API.Integration\Experian.API.Integration.csproj", "{9A10AB67-B1A2-419A-ADFD-3E62EBBE4B2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experian.API.Tests", "Experian.API.BusinessTests\Experian.API.Tests.csproj", "{6119283A-0C5B-43F0-8622-19E4337F7F75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experian.API.Tests", "Experian.API.Tests\Experian.API.Tests.csproj", "{6119283A-0C5B-43F0-8622-19E4337F7F75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
