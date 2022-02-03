@@ -10,7 +10,7 @@ using Experian.API.Business;
 using Microsoft.Extensions.Logging;
 using Experian.API.Entities;
 
-namespace Experian.API.Controllers.Tests
+namespace Experian.API.Tests
 {
     [TestClass()]
     public class PhotoAlbumControllerTests
