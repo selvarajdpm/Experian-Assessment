@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Experian.API.Helpers;
 using Experian.API.Entities;
+using Experian.API.Tests;
 
 namespace Experian.API.Integration.Tests
 {
@@ -39,29 +40,8 @@ namespace Experian.API.Integration.Tests
         [TestMethod()]
         public async Task GetAllAlbumsAsyncTestAsync()
         {
-            var albumSetup = new List<Album>()
-            {
-                new Album()
-                {
-                    Id = 1,
-                    Title = "First",
-                    UserId = 1
-                },
-                new Album()
-                {
-                    Id = 2,
-                    Title = "Second",
-                    UserId = 1
-                },
-                new Album()
-                {
-                    Id = 3,
-                    Title = "Third",
-                    UserId = 2
-                }
-            };
             _mockRestClientHelper.Setup(x => x.GetAsync<List<Album>>(It.IsAny<string>()))
-                .ReturnsAsync(albumSetup);
+                .ReturnsAsync(MockPhotoAlbumData.GetAlbumSetup());
             _mockConfiguration.Setup(x => x.Value).Returns(new Configuration()
             {
                 Url = new Url()
@@ -81,30 +61,9 @@ namespace Experian.API.Integration.Tests
         [TestMethod()]
         public async Task GetAlbumsByUserAsyncTestAsync()
         {
-            var albumSetup = new List<Album>()
-            {
-                new Album()
-                {
-                    Id = 1,
-                    Title = "First",
-                    UserId = 1
-                },
-                new Album()
-                {
-                    Id = 2,
-                    Title = "Second",
-                    UserId = 1
-                },
-                new Album()
-                {
-                    Id = 3,
-                    Title = "Third",
-                    UserId = 2
-                }
-            };
             int userId = 2;
             _mockRestClientHelper.Setup(x => x.GetAsync<List<Album>>(It.IsAny<string>()))
-                .ReturnsAsync(albumSetup.Where(x => x.UserId == userId).ToList());
+                .ReturnsAsync(MockPhotoAlbumData.GetAlbumSetup().Where(x => x.UserId == userId).ToList());
             _mockConfiguration.Setup(x => x.Value).Returns(new Configuration()
             {
                 Url = new Url()
@@ -124,31 +83,8 @@ namespace Experian.API.Integration.Tests
         [TestMethod()]
         public async Task GetAllPhotosAsyncTestAsync()
         {
-            var photoSetup = new List<Photo>()
-            {
-                new Photo()
-                {
-                    Id = 1,
-                    AlbumId = 1
-                },
-                new Photo()
-                {
-                    Id = 2,
-                    AlbumId = 2
-                },
-                new Photo()
-                {
-                    Id = 3,
-                    AlbumId = 3
-                },
-                new Photo()
-                {
-                    Id = 4,
-                    AlbumId = 2
-                }
-            };
             _mockRestClientHelper.Setup(x => x.GetAsync<List<Photo>>(It.IsAny<string>()))
-                .ReturnsAsync(photoSetup);
+                .ReturnsAsync(MockPhotoAlbumData.GetPhotoSetup());
             _mockConfiguration.Setup(x => x.Value).Returns(new Configuration()
             {
                 Url = new Url()

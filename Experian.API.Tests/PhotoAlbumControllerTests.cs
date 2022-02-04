@@ -36,57 +36,7 @@ namespace Experian.API.Tests
         [TestMethod()]
         public async Task GetTestAsync()
         {
-            var albumSetup = new List<Album>()
-            {
-                new Album()
-                {
-                    Id = 1,
-                    Title = "First",
-                    UserId = 1,
-                    Photos = new List<Photo>()
-                    {
-                        new Photo()
-                        {
-                            Id = 1,
-                            AlbumId = 1
-                        }
-                    }
-                },
-                new Album()
-                {
-                    Id = 2,
-                    Title = "Second",
-                    UserId = 1,
-                    Photos = new List<Photo>()
-                    {
-                        new Photo()
-                        {
-                            Id = 2,
-                            AlbumId = 2
-                        }
-                    }
-                },
-                new Album()
-                {
-                    Id = 3,
-                    Title = "Third",
-                    UserId = 2,
-                    Photos = new List<Photo>()
-                    {
-                        new Photo()
-                        {
-                            Id = 3,
-                            AlbumId = 3
-                        },
-                        new Photo()
-                        {
-                            Id = 4,
-                            AlbumId = 3
-                        }
-                    }
-                }
-            };
-            _mockPhotoAlbumBusiness.Setup(x => x.GetAllPhotoAlbumsAsync()).ReturnsAsync(albumSetup);
+            _mockPhotoAlbumBusiness.Setup(x => x.GetAllPhotoAlbumsAsync()).ReturnsAsync(MockPhotoAlbumData.GetAlbumWithPhotoSetup());
             var photoAlbumController = CreatePhotoAlbumController();
             var response = await photoAlbumController.Get();
             var album = (IEnumerable<Album>)((Microsoft.AspNetCore.Mvc.ObjectResult)response.Result).Value;
@@ -96,58 +46,8 @@ namespace Experian.API.Tests
         [TestMethod()]
         public async Task GetByUserTestAsync()
         {
-            var albumSetup = new List<Album>()
-            {
-                new Album()
-                {
-                    Id = 1,
-                    Title = "First",
-                    UserId = 1,
-                    Photos = new List<Photo>()
-                    {
-                        new Photo()
-                        {
-                            Id = 1,
-                            AlbumId = 1
-                        }
-                    }
-                },
-                new Album()
-                {
-                    Id = 2,
-                    Title = "Second",
-                    UserId = 1,
-                    Photos = new List<Photo>()
-                    {
-                        new Photo()
-                        {
-                            Id = 2,
-                            AlbumId = 2
-                        }
-                    }
-                },
-                new Album()
-                {
-                    Id = 3,
-                    Title = "Third",
-                    UserId = 2,
-                    Photos = new List<Photo>()
-                    {
-                        new Photo()
-                        {
-                            Id = 3,
-                            AlbumId = 3
-                        },
-                        new Photo()
-                        {
-                            Id = 4,
-                            AlbumId = 3
-                        }
-                    }
-                }
-            };
             int userId = 2;
-            _mockPhotoAlbumBusiness.Setup(x => x.GetPhotoAlbumsByUserAsync(userId)).ReturnsAsync(albumSetup.Where(x => x.UserId == userId));
+            _mockPhotoAlbumBusiness.Setup(x => x.GetPhotoAlbumsByUserAsync(userId)).ReturnsAsync(MockPhotoAlbumData.GetAlbumWithPhotoSetup().Where(x => x.UserId == userId));
             var photoAlbumController = CreatePhotoAlbumController();
             var response = await photoAlbumController.Get(userId);
             var album = (IEnumerable<Album>)((Microsoft.AspNetCore.Mvc.ObjectResult)response.Result).Value;

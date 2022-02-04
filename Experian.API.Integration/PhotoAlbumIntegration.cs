@@ -24,16 +24,28 @@ namespace Experian.API.Integration
             this._configuration = configOptions.Value;
         }
 
+        /// <summary>
+        /// Get all albums from external service
+        /// </summary>
+        /// <returns>Albums</returns>
         public async Task<IEnumerable<Album>> GetAllAlbumsAsync()
         {
             return await _restClientHelper.GetAsync<List<Album>>(_configuration.Url.PhotoAlbumBase + _configuration.Url.Album);
         }
 
+        /// <summary>
+        /// Get albums from external service for a user
+        /// </summary>
+        /// <returns>Albums</returns>
         public async Task<IEnumerable<Album>> GetAlbumsByUserAsync(int userId)
         {
             return await _restClientHelper.GetAsync<List<Album>>(_configuration.Url.PhotoAlbumBase + string.Format(_configuration.Url.AlbumByUser, userId));
         }
 
+        /// <summary>
+        /// Get all photos from external service
+        /// </summary>
+        /// <returns>photos</returns>
         public async Task<IEnumerable<Photo>> GetAllPhotosAsync()
         {
             return await _restClientHelper.GetAsync<List<Photo>>(_configuration.Url.PhotoAlbumBase + _configuration.Url.Photo);
